@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
+from LineAlpha import LineClient
+from LineAlpha.LineApi import LineTracer
+from LineAlpha.LineThrift.ttypes import Message
+from LineAlpha.LineThrift.TalkService import Client
+import time, datetime, random ,sys, re, string, os, json
 
-import LINETCR
-from LINETCR.lib.curve.ttypes import *
-from datetime import datetime
-import time,random,sys,json,codecs,threading,glob,re,os,subprocess
-import bs4
-import requests,jsom,urllib
-import html5lib
-from random import randint
-from bs4 import BeautifulSoup
-from gtts import gTTS
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -20,7 +15,7 @@ profile, setting, tracer = client.getProfile(), client.getSettings(), LineTracer
 offbot, messageReq, wordsArray, waitingAnswer = [], {}, {}, {}
 
 print client._loginresult()
-sys.setdefaultencoding('utf-8')
+
 
 helpMessage ="""=====[(E)(C)(U)(Z)]=====
 
@@ -167,21 +162,14 @@ backup.dispalyName = contact.displayName
 backup.statusMessage = contact.statusMessage
 backup.pictureStatus = contact.pictureStatus
 
-def sendMessage(to, text, contentMetadata={}, contentType=0):
-    mes = Message()
-    mes.to, mes.from_ = to, profile.mid
-    mes.text = text
-    mes.contentType, mes.contentMetadata = contentType, contentMetadata
-    if to not in messageReq:
-        messageReq[to] = -1
-    messageReq[to] += 1
-
-def cms(string, commands): #/XXX, >XXX, ;XXX, ^XXX, %XXX, $XXX...
-    tex = ["+","@","/",">",";","^","%","$","＾","サテラ:","サテラ:","サテラ：","サテラ："] 
-    for tex in tex:
-      for command in commands:
-        if string ==command:
-          return True
+def NOTIFIED_ADD_CONTACT(op):
+    try:
+        sendMessage(op.param1, client.getContact(op.param1).displayName + "Thanks for add")
+    except Exception as e:
+        print e
+        print ("\n\nWelcome To The Jungle\n\n")
+        return
+tracer.addOpInterrupt(5,NOTIFIED_ADD_CONTACT)
 
 def bot(op):
     try:

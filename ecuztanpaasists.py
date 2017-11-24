@@ -10,20 +10,16 @@ import html5lib
 from random import randint
 from bs4 import BeautifulSoup
 from gtts import gTTS
-#cl = LINETCR.LINE() # Koplaxs
-#cl.login(token="ElhAsfzfjUzOrbE5dqUd.7rvSHV/LyctaRlOw94IEBq.htZ0W7ND5wiwKLeT1MCBkeBvSScmrhbxFfpeEVAuC6o=")
-#cl.loginResult()
-
-cl = LINETCR.LINE()
-cl.login(token="EmsiAMQ4pctNCDXTxrjf.2KxSPkZ2CzdCAGm1TMmYFW.MucewEB79YtqTZ11ou0EdMQoCkPd8v29TI6yAsvagws=")
-cl.loginResult()
-
-kibackup = LINETCR.LINE()
-kibackup.login(token="EmjrG8ScfuyKIGQPPbkd.OUfHnymoKNaQJw2gTTkyNq.jrlz0J+Ir282vnNUSJw9vwC0OkVCB2YeQyLNnBAB4kc=")
-kibackup.loginResult()
-
-print "login success plak"
 reload(sys)
+sys.setdefaultencoding('utf-8')
+
+client = LineClient()
+client._qrLogin("line://au/q/")
+
+profile, setting, tracer = client.getProfile(), client.getSettings(), LineTracer(client)
+offbot, messageReq, wordsArray, waitingAnswer = [], {}, {}, {}
+
+print client._loginresult()
 sys.setdefaultencoding('utf-8')
 
 helpMessage ="""=====[(E)(C)(U)(Z)]=====
@@ -96,7 +92,6 @@ helpMessage ="""=====[(E)(C)(U)(Z)]=====
 ☫[Speed/Sp] Cek Speed Bot
 ☫[Woy/woi/Bot] Random Chat  
 
- ✍T҉̶̘̟̼̉̈́͐͋͌̊Σ̶Δ̶M҉̶̘͈̺̪͓̺ͩ͂̾ͪ̀̋ ̶̶̶D̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎E̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎S̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎T̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎R̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎O̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎Y̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎E̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎͎R̶̶꙯꙯꙰꙰͎͎͎͎͎͎͎͎͎͎͎͎͎͎Sβ̶Ω̶T҉̶̘̟̼̉̈́͐͋͌̊✈
 =====[(E)(C)(U)(Z)]=====
 ☞ http://line.me/ti/p/~ecuz69 ☜
 """
@@ -119,8 +114,8 @@ KAC=[cl,kibackup]
 mid = cl.getProfile().mid
 kibackupmid = kibackup.getProfile().mid
 Bots=[mid,kibackupmid]
-owner =["u34ef67358f654effe2d905f76bbb06db"]
-admin = ["u34ef67358f654effe2d905f76bbb06db"]
+owner =["qr=true"]
+admin = ["qr=true"]
 
 wait = {
     'contact':False,
@@ -132,11 +127,6 @@ wait = {
     'message':"""тerima Kasih Sudah Menambahkan Aku Jadi Teman
 ≫ PAP = PM Dibalas ^-^ ≪
 ≫ Dragons Bot Protect ≪
-
-
-ṡȗƿƿȏяṭєԀ ɞʏ:
-  
-☆ Yovan Derstroyers ☆
 
 """,
     "lang":"JP",
@@ -284,7 +274,7 @@ def bot(op):
                   time.sleep(0.01)
                   cl.sendText(op.param1, "Makasih Brader")
                   kibackup.sendText(op.param1, "Sama² Brader")
-                  kibackup.sendText(op.param1, "Ane Balik Dulu\nAssalamualaikum")
+                  kibackup.sendText(op.param1, "Ane Balik Dulu\nSyalom")
                   cl.sendText(op.param1, "Syalom")
                   k1.leaveGroup(op.param1)
                   G = cl.getGroup(op.param1)
@@ -307,7 +297,7 @@ def bot(op):
                   time.sleep(0.01)
                   cl.sendText(op.param1, "Makasih Brader")
                   kibackup.sendText(op.param1, "Sama² Brader")
-                  kibackup.sendText(op.param1, "Ane Balik Dulu\nAssalamualaikum")
+                  kibackup.sendText(op.param1, "Ane Balik Dulu\nSyalom")
                   cl.sendText(op.param1, "syalom")
                   kibackup.leaveGroup(op.param1)
                   G = random.choice(KAC).getGroup(op.param1)
